@@ -1,0 +1,29 @@
+{
+  "name": "express-workshop",
+  "version": "1.0.0",
+  "description": "Express NodeJS Workshop",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sabinmarcu/express-workshop.git"
+  },
+  "author": "Sabin Marcu <sabinmarcu@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sabinmarcu/express-workshop/issues"
+  },
+  "homepage": "https://github.com/sabinmarcu/express-workshop#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
