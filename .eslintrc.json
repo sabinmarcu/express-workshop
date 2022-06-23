@@ -9,6 +9,7 @@
     "import/extensions": [
       "error",
       "ignorePackages"
-    ]
+    ],
+    "no-await-in-loop": 0
   }
 }
