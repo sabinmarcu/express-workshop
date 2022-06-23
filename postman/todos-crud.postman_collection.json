@@ -1,0 +1,310 @@
+{
+	"info": {
+		"_postman_id": "331a75c0-66cf-4c5e-9332-f8ae25c13449",
+		"name": "Express Workshop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/{{authRouter}}/login",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"{{authRouter}}",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/{{authRouter}}/logout",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"{{authRouter}}",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/{{authRouter}}/register",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"{{authRouter}}",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Todos",
+			"item": [
+				{
+					"name": "Item",
+					"item": [
+						{
+							"name": "Get one todo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{root}}/{{todosRouter}}/:id",
+									"host": [
+										"{{root}}"
+									],
+									"path": [
+										"{{todosRouter}}",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{randomTodo}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update one todo",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"{{$randomJobDescriptor}}\",\n    \"done\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{root}}/{{todosRouter}}/:id",
+									"host": [
+										"{{root}}"
+									],
+									"path": [
+										"{{todosRouter}}",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{randomTodo}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete one todo",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{root}}/{{todosRouter}}/:id",
+									"host": [
+										"{{root}}"
+									],
+									"path": [
+										"{{todosRouter}}",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{randomTodo}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "All Todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonData = pm.response.json()",
+									"todo = jsonData[parseInt(Math.random() * jsonData.length)]",
+									"pm.globals.set(\"randomTodo\", todo.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/{{todosRouter}}",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"{{todosRouter}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Done Todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/{{todosRouter}}?done=true",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"{{todosRouter}}"
+							],
+							"query": [
+								{
+									"key": "done",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todo Todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{root}}/{{todosRouter}}?done=false",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"{{todosRouter}}"
+							],
+							"query": [
+								{
+									"key": "done",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Todo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"{{$randomCatchPhrase}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{root}}/{{todosRouter}}",
+							"host": [
+								"{{root}}"
+							],
+							"path": [
+								"{{todosRouter}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{root}}/",
+					"host": [
+						"{{root}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "authRouter",
+			"value": "auth",
+			"type": "default"
+		},
+		{
+			"key": "todosRouter",
+			"value": "todos",
+			"type": "default"
+		}
+	]
+}
