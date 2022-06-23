@@ -2,10 +2,12 @@ import express from 'express';
 import routes from './routes/index.js';
 import { makeLogger } from './utils/makeLogger.js';
 import './seed/index.js';
+import { logRoute } from './middlewares/logRoute.js';
 
 const debug = makeLogger('server');
 
 const app = express();
+app.use(logRoute(debug));
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
