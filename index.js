@@ -229,15 +229,53 @@
 //     mapping[postId] = comments;
 //   }
 //   // functional
-//   (await Promise.all(
-//     posts.map(({ postId }) => fetch('/comments', { post: postId })
-//       .then((comments) => ({ postId, comments }))),
-//   )).reduce(
-//     (acc, { postId, comments }) => ({
-//       ...acc,
-//       [postId]: comments,
-//     }),
-//     {},
-//   );
+// (await Promise.all(
+//   posts.map(({ postId }) => fetch('/comments', { post: postId })
+//     .then((comments) => ({ postId, comments }))),
+// )).reduce(
+//   (acc, { postId, comments }) => ({
+//     ...acc,
+//     [postId]: comments,
+//   }),
+//   {},
+// );
 //   return mapping;
 // };
+
+// const wait = (ms) => new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     if (Math.random() > 0.5) {
+//       resolve(ms);
+//     } else {
+//       reject(new Error(`err${ms}`));
+//     }
+//   }, ms);
+// });
+// const waitAndLog = async (ms) => {
+//   const result = await wait(ms);
+//   console.log('resolve', result);
+//   return result;
+// };
+
+//   console.log('start');
+// try {
+//   console.log('result', await Promise.any([
+//     waitAndLog(3000),
+//     waitAndLog(1000),
+//     waitAndLog(2000),
+//   ]));
+// } catch (e) {
+//   console.error('error', e);
+// } finally {
+//   console.log('end');
+// }
+
+// console.log('start');
+// Promise.allSettled([
+//   waitAndLog(3000),
+//   waitAndLog(1000),
+//   waitAndLog(2000),
+// ])
+//   .then(console.log.bind(console, 'result'))
+//   .catch(console.error.bind(console, 'error'))
+//   .finally(console.log.bind(console, 'end'));
