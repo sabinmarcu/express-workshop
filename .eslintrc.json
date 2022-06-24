@@ -11,5 +11,10 @@
       "ignorePackages"
     ],
     "no-await-in-loop": 0
+  },
+  "env": {
+    "node": true,
+    "es6": true,
+    "jest": true
   }
 }
