@@ -1,19 +1,19 @@
 import bodyParser from 'body-parser';
 import { Router } from 'express';
 import { extractEntity } from '../middlewares/extractEntity.js';
-import { byId, remove, update } from '../models/todos.js';
+import { byId, remove, update } from '../models/users.js';
 import { makeLogger } from '../utils/makeLogger.js';
-import { updateSchema } from '../validation/todos.js';
+import { createUpdateSchema } from '../validation/users.js';
 import { validator } from '../utils/validator.js';
 
-const debug = makeLogger('router:todos-item');
+const debug = makeLogger('router:users-item');
 
-export const todosItemRouter = new Router({ mergeParams: true });
-todosItemRouter.use([extractEntity('todo', byId), bodyParser.json()]);
+export const usersItemRouter = new Router({ mergeParams: true });
+usersItemRouter.use([extractEntity('user', byId), bodyParser.json()]);
 
 const routes = [
-  ['get', '/', (req, res) => res.json(req.todo)],
-  ['patch', '/', validator.body(updateSchema), (req, res) => {
+  ['get', '/', (req, res) => res.json(req.user)],
+  ['patch', '/', validator.body(createUpdateSchema), (req, res) => {
     const { id } = req.params;
     return res.json(update(id, req.body));
   }],
@@ -25,5 +25,5 @@ const routes = [
 
 for (const [method, route, ...rest] of routes) {
   debug.info(`Mounting ${method.toUpperCase()} ${route}`);
-  todosItemRouter[method](route, ...rest);
+  usersItemRouter[method](route, ...rest);
 }

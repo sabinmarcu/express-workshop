@@ -279,3 +279,26 @@
 //   .then(console.log.bind(console, 'result'))
 //   .catch(console.error.bind(console, 'error'))
 //   .finally(console.log.bind(console, 'end'));
+
+// const curry = (fn) => {
+//   const curried = function curried(...args) {
+//     if (args.length >= fn.length) {
+//       return fn(...args);
+//     }
+//     return (...nextArgs) => curried.apply(this, [...args, ...nextArgs]);
+//   };
+//   return curried;
+// };
+
+// const sum = curry((a, b, c, d) => a + b + c + d);
+// console.log(sum(1, 2, 3, 4));
+// const sum3 = sum(1, 2);
+// const sum6 = sum3(3);
+// console.log(sum6(4, 2, 3, 2, 4));
+
+// const create = curry(
+//   (list, input) => { console.log({ list, input }); },
+// );
+// const createUser = create([1, 2, 3]);
+// console.log(createUser('ana'));
+// console.log(createUser('diana'));
