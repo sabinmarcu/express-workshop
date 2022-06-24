@@ -5,6 +5,8 @@ import { byId, remove, update } from '../models/todos.js';
 import { makeLogger } from '../utils/makeLogger.js';
 import { updateSchema } from '../validation/todos.js';
 import { validator } from '../utils/validator.js';
+import { extractUser } from '../middlewares/extractUser.js';
+import { hasRoles } from '../middlewares/hasRoles.js';
 
 const debug = makeLogger('router:todos-item');
 
@@ -13,11 +15,11 @@ todosItemRouter.use([extractEntity('todo', byId), bodyParser.json()]);
 
 const routes = [
   ['get', '/', (req, res) => res.json(req.todo)],
-  ['patch', '/', validator.body(updateSchema), (req, res) => {
+  ['patch', '/', extractUser, validator.body(updateSchema), hasRoles('manager', 'admin'), (req, res) => {
     const { id } = req.params;
     return res.json(update(id, req.body));
   }],
-  ['delete', '/', (req, res) => {
+  ['delete', '/', extractUser, hasRoles('admin'), (req, res) => {
     const { id } = req.params;
     return res.json(remove(id));
   }],

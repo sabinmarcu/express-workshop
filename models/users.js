@@ -27,4 +27,7 @@ export const update = updateEntity(data);
 export const remove = removeEntity(data);
 
 export const byRole = (role) => list((todo) => todo.role === role);
+export const byCredentials = ({ email, password }) => (
+  data.find((user) => user.email === email && user.password === password)
+);
 export const forbiddenFields = ['password'];

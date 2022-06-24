@@ -8,12 +8,16 @@ import {
 } from '../models/users.js';
 import { validator } from '../utils/validator.js';
 import { makeLogger } from '../utils/makeLogger.js';
-import { createUpdateSchema, getSchema } from '../validation/users.js';
+import { createSchema, getSchema } from '../validation/users.js';
 import { usersItemRouter } from './users-item.js';
+import { extractUser } from '../middlewares/extractUser.js';
+import { hasRoles } from '../middlewares/hasRoles.js';
 
 const debug = makeLogger('router:users');
 
 export const usersRouter = new Router();
+usersRouter.use([extractUser, hasRoles('admin')]);
+
 export const sanitizeUser = (user) => {
   const sanitizedUser = {};
   for (const key in user) {
@@ -39,7 +43,7 @@ const routes = [
   }],
 
   // Create a new users
-  ['post', '/', bodyParser.json(), validator.body(createUpdateSchema), (req, res) => {
+  ['post', '/', extractUser, bodyParser.json(), validator.body(createSchema), (req, res) => {
     const newTodo = create(req.body);
     return res.send(newTodo);
   }],

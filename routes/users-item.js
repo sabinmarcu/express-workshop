@@ -3,7 +3,7 @@ import { Router } from 'express';
 import { extractEntity } from '../middlewares/extractEntity.js';
 import { byId, remove, update } from '../models/users.js';
 import { makeLogger } from '../utils/makeLogger.js';
-import { createUpdateSchema } from '../validation/users.js';
+import { updateSchema } from '../validation/users.js';
 import { validator } from '../utils/validator.js';
 
 const debug = makeLogger('router:users-item');
@@ -13,7 +13,7 @@ usersItemRouter.use([extractEntity('user', byId), bodyParser.json()]);
 
 const routes = [
   ['get', '/', (req, res) => res.json(req.user)],
-  ['patch', '/', validator.body(createUpdateSchema), (req, res) => {
+  ['patch', '/', validator.body(updateSchema), (req, res) => {
     const { id } = req.params;
     return res.json(update(id, req.body));
   }],
