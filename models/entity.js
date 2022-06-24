@@ -6,8 +6,8 @@ import {
 export const create = curry(
   (data, input) => {
     const newEntity = ({
-      ...input,
       id: nanoid(),
+      ...input,
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });

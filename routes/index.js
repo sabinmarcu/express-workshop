@@ -3,7 +3,7 @@ import { todosRouter } from './todos.js';
 import { usersRouter } from './users.js';
 
 export default [
-  ['/auth', authRouter],
-  ['/todos', todosRouter],
-  ['/users', usersRouter],
+  ['3000', authRouter],
+  ['4000', todosRouter],
+  ['5000', usersRouter],
 ];

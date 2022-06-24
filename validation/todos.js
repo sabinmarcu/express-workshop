@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 export const getSchema = Joi.object({
-  role: Joi.string().pattern(/^(true|false)$/),
+  done: Joi.string().pattern(/^(true|false)$/),
 });
 export const titleSchema = Joi.string().min(8);
 export const createSchema = Joi.object({
