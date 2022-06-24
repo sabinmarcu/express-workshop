@@ -1,0 +1,522 @@
+{
+	"info": {
+		"_postman_id": "331a75c0-66cf-4c5e-9332-f8ae25c13449",
+		"name": "Express Workshop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const regex = /(^[A-Za-z0-9-_]*\\.[A-Za-z0-9-_]*\\.[A-Za-z0-9-_]*$)/;",
+									"const token = pm.response.text().match(regex);",
+									"pm.globals.set(\"authToken\", token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"a@b.com\",\n    \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{authServer}}/login",
+							"host": [
+								"{{authServer}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Manager",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const regex = /(^[A-Za-z0-9-_]*\\.[A-Za-z0-9-_]*\\.[A-Za-z0-9-_]*$)/;",
+									"const token = pm.response.text().match(regex);",
+									"pm.globals.set(\"authToken\", token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"manager@b.com\",\n    \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{authServer}}/login",
+							"host": [
+								"{{authServer}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const regex = /(^[A-Za-z0-9-_]*\\.[A-Za-z0-9-_]*\\.[A-Za-z0-9-_]*$)/;",
+									"const token = pm.response.text().match(regex);",
+									"pm.globals.set(\"authToken\", token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@b.com\",\n    \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{authServer}}/login",
+							"host": [
+								"{{authServer}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{authServer}}/logout",
+							"host": [
+								"{{authServer}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"{{$randomPassword}}\",\n    \"name\": \"{{$randomFullName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{authServer}}/register",
+							"host": [
+								"{{authServer}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Todos",
+			"item": [
+				{
+					"name": "Item",
+					"item": [
+						{
+							"name": "Get one todo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{todosServer}}/:id",
+									"host": [
+										"{{todosServer}}"
+									],
+									"path": [
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{randomTodo}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update one todo",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"{{$randomJobDescriptor}}\",\n    \"done\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{todosServer}}/:id",
+									"host": [
+										"{{todosServer}}"
+									],
+									"path": [
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{randomTodo}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete one todo",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{todosServer}}/:id",
+									"host": [
+										"{{todosServer}}"
+									],
+									"path": [
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{randomTodo}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "All Todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonData = pm.response.json()",
+									"todo = jsonData[parseInt(Math.random() * jsonData.length)]",
+									"pm.globals.set(\"randomTodo\", todo.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{todosServer}}",
+							"host": [
+								"{{todosServer}}"
+							],
+							"query": [
+								{
+									"key": "done",
+									"value": "false",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Done Todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{todosServer}}/?done=true",
+							"host": [
+								"{{todosServer}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "done",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todo Todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{todosServer}}?done=false",
+							"host": [
+								"{{todosServer}}"
+							],
+							"query": [
+								{
+									"key": "done",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Todo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"{{$randomCatchPhrase}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{todosServer}}",
+							"host": [
+								"{{todosServer}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "All users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"jsonData = pm.response.json()",
+									"todo = jsonData[parseInt(Math.random() * jsonData.length)]",
+									"pm.globals.set(\"randomUser\", todo.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{usersServer}}",
+							"host": [
+								"{{usersServer}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"{{$randomPassword}}\",\n    \"name\": \"{{$randomFullName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{usersServer}}",
+							"host": [
+								"{{usersServer}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{usersServer}}/:id",
+							"host": [
+								"{{usersServer}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update one user",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFullName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{usersServer}}/:id",
+							"host": [
+								"{{usersServer}}"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{randomUser}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "authRouter",
+			"value": "auth",
+			"type": "default"
+		},
+		{
+			"key": "todosRouter",
+			"value": "todos",
+			"type": "default"
+		},
+		{
+			"key": "usersRouter",
+			"value": "users",
+			"type": "default"
+		}
+	]
+}

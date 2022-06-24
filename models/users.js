@@ -17,7 +17,7 @@ const data = [];
  * }
  */
 
-export const create = createEntity(data);
+export const create = (input) => createEntity(data, { role: 'user', ...input });
 
 export const byId = entityById(data);
 export const list = (predicate) => listEntity(data, predicate);

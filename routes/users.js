@@ -12,11 +12,12 @@ import { createSchema, getSchema } from '../validation/users.js';
 import { usersItemRouter } from './users-item.js';
 import { extractUser } from '../middlewares/extractUser.js';
 import { hasRoles } from '../middlewares/hasRoles.js';
+import { bypassRegister } from '../middlewares/bypassRegister.js';
 
 const debug = makeLogger('router:users');
 
 export const usersRouter = new Router();
-usersRouter.use([extractUser, hasRoles('admin')]);
+usersRouter.use([bypassRegister, extractUser, hasRoles('admin')]);
 
 export const sanitizeUser = (user) => {
   const sanitizedUser = {};
@@ -43,9 +44,9 @@ const routes = [
   }],
 
   // Create a new users
-  ['post', '/', extractUser, bodyParser.json(), validator.body(createSchema), (req, res) => {
-    const newTodo = create(req.body);
-    return res.send(newTodo);
+  ['post', '/', bodyParser.json(), validator.body(createSchema), (req, res) => {
+    const newUser = create(req.body);
+    return res.send(newUser);
   }],
 ];
 

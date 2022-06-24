@@ -4,7 +4,7 @@ import { byCredentials } from '../models/users.js';
 import { createToken } from '../services/auth.js';
 import { makeLogger } from '../utils/makeLogger.js';
 import { validator } from '../utils/validator.js';
-import { loginSchema } from '../validation/users.js';
+import { createSchema, loginSchema } from '../validation/users.js';
 
 const debug = makeLogger('router:auth');
 
@@ -20,7 +20,20 @@ const routes = [
     return res.send(token);
   }],
   ['post', '/logout', (req, res) => res.send('Logout')],
-  ['post', '/register', (req, res) => res.send('Register')],
+  ['post', '/register', bodyParser.json(), validator.body(createSchema), async (req, res) => {
+    const user = await fetch(
+      'http://localhost:5000',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Origin: req.headers.host,
+        },
+        body: JSON.stringify(req.body),
+      },
+    ).then((response) => response.json());
+    res.json(user);
+  }],
 ];
 
 for (const [method, route, ...rest] of routes) {
